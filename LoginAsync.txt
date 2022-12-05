@@ -1,0 +1,157 @@
+import React, {useState} from 'react'
+import {
+    SafeAreaView,
+    AsyncStorage,
+    Text,
+    TextInput,
+    StyleSheet,
+    TouchableOpacity,
+    View,
+    ImageBackground
+} from "react-native";
+import HomeScreen from "./HomeScreen";
+const next = {uri: "https://img.redro.pl/fototapety/blue-light-gradient-background-smooth-blue-blurred-abstract-700-198099226.jpg"}
+
+const LoginScreen = (navigation) => {
+    const [textInputValue, setTextInputValue] = useState('');
+    const [value, setValue] = useState('');
+
+   const saveValue = () => {
+       if(textInputValue) {
+           AsyncStorage.setItem('any_key_here', textInputValue);
+           setTextInputValue('');
+           alert('Data saved');
+       } else {
+           alert('Please fill data');
+       }
+   console.log("CurrentUser:" + value)
+   }
+
+    const getValue = () => {
+       AsyncStorage.getItem('any_key_here')
+           .then((value) => {
+           setValue((value));
+        })
+    }
+
+    return (
+        <SafeAreaView style={{flex: 1}}>
+            <View style={styles.container}>
+                <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+                    {value}
+                </Text>
+                <TextInput
+                    placeholder="Enter Some Text "
+                    value={textInputValue}
+                    onChangeText={(data) => setTextInputValue(data)}
+                    underlineColorAndroid='transparent'
+                    style={styles.textInputStyle} />
+                <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+                    <TouchableOpacity
+                        onPress={saveValue}
+                        style={styles.buttonStyle}>
+                        <Text style={styles.buttonTextStyle}>
+                            Save Value
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={getValue}
+                        style={styles.buttonStyle}>
+                        <Text style={styles.buttonTextStyle}>
+                            Get Value
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.bottom}>
+                    <TouchableOpacity style={styles.answerButton} onPress={() => navigation.navigate("HomeScreen")}>
+                        <ImageBackground source={next} imageStyle={{borderRadius: 25}} style={{
+                            borderWidth: 0,
+                            borderColor: '#000000',
+                            height: 60,
+                            width: 120,
+                            borderRadius: 25,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}>
+                            <Text style={{
+                                fontSize: 16,
+                                fontWeight: '600',
+                                color: 'black',}}> GO HOME </Text>
+                        </ImageBackground>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </SafeAreaView>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex:1,
+        padding:10,
+        backgroundColor: 'white',
+    },
+    titleText: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        paddingVertical: 20
+    },
+    textInputStyle: {
+        textAlign: 'center',
+        height: 40,
+        width: '100%',
+        borderWidth: 1,
+        borderColor: 'blue',
+        fontSize: 16,
+    },
+    buttonStyle: {
+        fontSize: 16,
+        color: 'white',
+        backgroundColor: 'blue',
+        padding: 5,
+        marginTop: 10,
+        width: 120,
+        height: 60,
+        justifyContent: 'center'
+    },
+    buttonTextStyle: {
+        padding: 5,
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 16,
+    },
+    textStyle: {
+        padding: 20,
+        textAlign: 'center',
+        fontSize: 30,
+    },
+    answerButton: {
+        borderWidth: 1,
+        borderColor: '#000000',
+        height: 60,
+        borderRadius: 25,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginVertical: 5
+    },
+    answerButtonText: {
+        fontSize: 18,
+        fontWeight: '600',
+        color: 'black',
+        marginLeft: 10,
+    },
+
+    bottom: {
+        marginBottom: 12,
+        paddingVertical: 16,
+        justifyContent: 'center',
+        flexDirection: 'row',
+    },
+
+})
+
+
+export default LoginScreen;

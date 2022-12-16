@@ -7,9 +7,11 @@ import PolishQuiz from "../screens/quizScreens/PolishQuiz";
 import ItalianQuiz from "../screens/quizScreens/ItalianQuiz";
 import EnglishQuiz from "../screens/quizScreens/EnglishQuiz";
 import NorwegianQuiz from "../screens/quizScreens/NorwegianQuiz";
+import SplashScreen from "../components/SplashScreen";
+import RefreshControl from "../components/RefreshControl";
+import MyList from "../components/MyList";
 
 const Stack = createNativeStackNavigator();
-
 
 const MyStack = () => {
     return (
@@ -33,12 +35,14 @@ const MyStack = () => {
             }
 
         }*/}  />
-        <Stack.Screen name="ResultsScreen" component={ResultsScreen} options={{ title: 'Results' }}/>
+        <Stack.Screen name="ResultsScreen" component={MyList} options={{ title: 'Results' }}/>
         <Stack.Screen name="Italian" component={ItalianQuiz} options={{ title: 'Quiz Page' }} />
         <Stack.Screen name="Polish" component={PolishQuiz} options={{ title: 'Quiz Page' }} />
         <Stack.Screen name="English" component={EnglishQuiz} options={{ title: 'Quiz Page' }} />
         <Stack.Screen name="Spanish" component={SpanishQuiz} options={{ title: 'Quiz Page' }} />
         <Stack.Screen name="Norwegian" component={NorwegianQuiz} options={{ title: 'Quiz Page' }} />
+        <Stack.Screen name="Splash Screen" component={SplashScreen} options={{ title: 'Quiz Page' }} />
+        <Stack.Screen name="Regulamin" component={Regulamin} options={{ title: 'Quiz Page' }} />
       </Stack.Navigator>
 
     );

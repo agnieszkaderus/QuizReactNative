@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component, useEffect} from 'react';
 import {Modal, Text, TouchableHighlight, View, StyleSheet, Image}   from 'react-native'
 const image = {uri: "https://t3.ftcdn.net/jpg/02/64/42/56/240_F_264425633_KujfwIjGkKjZF4niKgDbz3QKBmNupLCz.jpg"};
 const regulaminImage = {uri: "https://szpital.szpitalzelazna.pl/wp-content/uploads/2018/05/regulamin.jpg" };

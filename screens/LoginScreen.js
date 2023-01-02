@@ -8,18 +8,20 @@ import {
     Keyboard,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-
+import ButtonGradient from "../components/buttons/ButtonGradient";
+import ButtonBlue from "../components/buttons/ButtonBlue";
 
 const LoginScreen = (navigation) => {
     const [nickname, setNickname] = useState();
-
+    const [value, setValue] = useState();
     // Load data when the app starts
     useEffect(() => {
         const firstLoad = async () => {
             try {
                 const savedNickname = await AsyncStorage.getItem("@nickname");
                 setNickname(savedNickname);
+                getData();
+
             } catch (err) {
                 console.log(err);
             }
@@ -50,13 +52,27 @@ const LoginScreen = (navigation) => {
         Keyboard.dismiss();
     };
 
+    const checkRegulaminStatus = async () => {
+        AsyncStorage.getItem("@storage_Key").then((value) => {
+            console.log(value);
+        })
+    }
+
+    const getData = () => {
+        AsyncStorage.getItem("@storage_Key").then((value) => {
+            if(value != null){
+               setValue(value);
+                }
+            }
+        )
+    }
 
     return (
         <View style={styles.container}>
             {nickname ? (
                 <Text style={styles.heading}>Hello {nickname}</Text>
             ) : (
-                <Text style={styles.heading}>Create your nickname</Text>
+                <Text style={styles.heading}> Name? </Text>
             )}
 
             <TextInput
@@ -68,9 +84,17 @@ const LoginScreen = (navigation) => {
                 }} />
 
             <View style={styles.buttonContainer}>
-                <Button title="Save" onPress={saveNickname} />
-                <Button title="Delete" onPress={removeNickname} />
+                <ButtonBlue w={150} h={50}name="Save" onPress={saveNickname} />
+                <ButtonBlue w={150} h={50}name="Delete" onPress={removeNickname} />
             </View>
+            <View style={{marginTop: 50}}>
+                <Text style={styles.heading}> Regulamin Status: {value}</Text>
+
+                <ButtonBlue w={300} h={50} name="CHECK STATUS"
+                            onPress={checkRegulaminStatus}> </ButtonBlue>
+
+            </View>
+
         </View>
     );
 }

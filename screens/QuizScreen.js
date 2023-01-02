@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Animated,
   Modal,
-  SafeAreaView
+  SafeAreaView, ActivityIndicator, TextInput
 } from 'react-native'
 import {useState} from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -35,6 +35,9 @@ const QuizScreen = ({navigation, data, onPress}) => {
     inputRange: [0, allQuestions.length],
     outputRange: ['0%', '100%']
   })
+  const [showIndicator, setShowIndicator] = useState(true);
+  const [name, setName] = useState('');
+
 
   const validateAnswer = (selectedOption) => {
     let correct_option = allQuestions[currentQuestionIndex]['correct_option'];
@@ -45,7 +48,7 @@ const QuizScreen = ({navigation, data, onPress}) => {
       //Set Score
       setScore(score + 1)
     }
-    //Show Next Button
+    //Show Next Button1
     setShowNextButton(true)
   }
 
@@ -199,6 +202,22 @@ const QuizScreen = ({navigation, data, onPress}) => {
     )
   }
 
+  const postData = () => {
+    fetch('http://tgryl.pl/quiz/results', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "nick": name,
+        "score": score,
+        "total": allQuestions.length,
+        "type": "Everything"
+      }),
+    })
+  }
+
   const ModalPart = () => {
     return (
         <Modal
@@ -229,6 +248,18 @@ const QuizScreen = ({navigation, data, onPress}) => {
                     <Text style={styles.answerButtonText}> GO GOME </Text>
                   </TouchableOpacity>
                 </View>
+                <View>
+                  <Text> Name: {name} </Text>
+                  <TextInput
+                    onChangeText={setName}
+                    value={name}
+                    placeholder="Your name.." />
+
+                  <TouchableOpacity style={styles.modalButton}
+                                    onPress={postData}>
+                    <Text style={styles.answerButtonText}> SEND RESULTS </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </ImageBackground>
           </View>
@@ -238,7 +269,17 @@ const QuizScreen = ({navigation, data, onPress}) => {
 
 
   return (
+      <SafeAreaView>
+
+      <ActivityIndicator
+          size="large"
+          color="blue"
+          animating={showIndicator}
+          style={styles.activityIndicator} />
+
       <ImageBackground source={back} style={{height: '100%', width: '100%'}}>
+
+
 
         <SafeAreaView style={{flex: 1}}>
 
@@ -274,6 +315,7 @@ const QuizScreen = ({navigation, data, onPress}) => {
 
         </SafeAreaView>
       </ImageBackground>
+      </SafeAreaView>
   )
 };
 
@@ -375,6 +417,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#34A0A4',
     paddingHorizontal: 12,
     borderRadius: 12,
+  },
+  activityIndicator: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   }
 })
 

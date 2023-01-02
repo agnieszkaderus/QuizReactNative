@@ -1,13 +1,9 @@
 import * as React from 'react';
-import ResultsList from "../components/ResultsList";
-import MyList from "../components/MyList";
-import RefreshControl from "../components/RefreshControl";
-
-
+import ResultsLists from "../components/ResultsLists";
 
 const ResultsScreen = ({ navigation, route }) => {
     return(
-        <ResultsList/>
+        <ResultsLists/>
     )};
 
   export default ResultsScreen;

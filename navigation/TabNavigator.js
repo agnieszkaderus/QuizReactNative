@@ -6,6 +6,18 @@ import LoginScreen from "../screens/LoginScreen";
 import HomeScreen from "../screens/HomeScreen";
 import ResultsScreen from "../screens/ResultsScreen";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ResultsLists from "../components/ResultsLists";
+import ThirdQuizScreen from "../screens/ThirdQuizScreen";
+import TestsList from "../screens/TestsList";
+import Quiz1 from "../screens/quizScreens/Quiz1";
+import DatabaseHomeScreen from "../database/DatabaseHomeScreen";
+
+const home = {uri: "https://cdn-icons-png.flaticon.com/512/3845/3845763.png"}
+const results = {uri: "https://cdn-icons-png.flaticon.com/512/3845/3845849.png"}
+const login = {uri: "https://cdn-icons-png.flaticon.com/512/3845/3845839.png"}
+const list = {uri: "https://cdn-icons-png.flaticon.com/512/3845/3845772.png"}
+const test1 = {uri: "https://cdn-icons-png.flaticon.com/512/3845/3845880.png"}
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -22,20 +34,37 @@ const TabNavigator = () => {
 
             <Tab.Screen name="HomeScreen2" component={HomeScreen}  options={{
                 tabBarIcon: ({color, size}) => (
-                    <Feather name="home" color={color} size={size} />
-                ), tabBarShowLabel: true, tabBarLabelStyle: {fontSize: 15}, title: "HOME"
+                    <Image source={home} style={{width: 32, height:32}} />
+                    // <Feather name="home" color={color} size={size} />
+                ), tabBarShowLabel: true, tabBarLabelStyle: {fontSize: 12}, title: "HOME"
 
             }} />
             <Tab.Screen name="Login" component={LoginScreen} options={{
                 tabBarIcon: ({color, size}) => (
-                    <Feather name="meh" color={color} size={size} />
-                ), tabBarShowLabel: true,tabBarLabelStyle: {fontSize: 15, display: 'flex'}, title: "LOGIN",
+                    <Image source={login} style={{width: 32, height:32}} />
+                ), tabBarShowLabel: true,tabBarLabelStyle: {fontSize: 12, display: 'flex'}, title: "LOGIN",
             }} />
-            <Tab.Screen name="Results" component={ResultsScreen} options={{
+
+            <Tab.Screen name="Tests" component={TestsList} options={{
                 tabBarIcon: ({color, size}) => (
-                    <Feather name="check" color={color} size={size} />
-                ),  tabBarShowLabel: true,tabBarLabelStyle: {fontSize: 15}, title: "RESULTS"
+                    <Image source={list} style={{width: 32, height:32}} />
+                ),  tabBarShowLabel: true,tabBarLabelStyle: {fontSize: 12}, title: "TESTS"
             }} />
+
+            <Tab.Screen name="Results" component={ResultsLists} options={{
+                tabBarIcon: ({color, size}) => (
+                    <Image source={results} style={{width: 32, height:32}} />
+                ),  tabBarShowLabel: true,tabBarLabelStyle: {fontSize: 12}, title: "RESULTS"
+            }} />
+
+            <Tab.Screen name="DatabaseHomeScreen" component={DatabaseHomeScreen} options={{
+                tabBarIcon: ({color, size}) => (
+                    <Image source={test1} style={{width: 32, height:32}} />
+                ),  tabBarShowLabel: true,tabBarLabelStyle: {fontSize: 12}, title: "DATABASE"
+            }} />
+
+
+
         </Tab.Navigator>
 
     )

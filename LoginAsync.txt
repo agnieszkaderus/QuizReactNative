@@ -1,3 +1,53 @@
+import React, { Component } from 'react';
+import { AsyncStorage, Button, Text, View, StyleSheet } from 'react-native';
+
+export default class RegulaminScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            status: false
+        };
+    }
+
+    componentWillMount = () => {
+        AsyncStorage.getItem('myCheckbox').then((value) => {
+            this.setState({
+                status: (value === 'true')
+            });
+        });
+    };
+
+    toggleStatus() {
+        this.setState({
+            status: !this.state.status
+        });
+        AsyncStorage.setItem("myCheckbox",JSON.stringify(this.state.status));
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text>{typeof this.state.status +' : '+ this.state.status}</Text>
+                <Button onPress={this.toggleStatus.bind(this)} title={'Click'} />
+            </View>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#ecf0f1',
+    },
+});
+
+
+
+
+------------------------------
 import React, {useState} from 'react'
 import {
     SafeAreaView,

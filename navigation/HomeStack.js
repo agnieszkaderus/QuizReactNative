@@ -1,4 +1,4 @@
-// import {View, Text, Button,StyleSheet, Image, TouchableOpacity} from "react-native";
+// import {View, Text, Button1,StyleSheet, Image, TouchableOpacity} from "react-native";
 // import { createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 // import * as React from 'react';
 //
